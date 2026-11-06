@@ -20,9 +20,9 @@ export default async function Home() {
         <img src="/img/terrace_tables.jpg" alt="" className="absolute inset-0 h-full w-full object-cover opacity-45" />
         <div className="absolute inset-0 bg-gradient-to-t from-ink-900 via-ink-900/70 to-ink-900/30" />
         <div className="relative mx-auto max-w-6xl px-4 pb-16 pt-24 sm:pb-24 sm:pt-32">
-          <div className="max-w-xl">
+          <div className="rise max-w-xl">
             <span className="chip bg-brand-400/20 text-brand-100">حلب · الموكامبو · سنتر الاتحاد</span>
-            <h1 className="mt-4 text-4xl font-bold leading-tight sm:text-5xl">طاولتك جاهزة<br /><span className="text-neon">قبل ما توصل</span></h1>
+            <h1 className="mt-4 text-4xl font-bold leading-tight sm:text-5xl">طاولتك جاهزة<br /><span className="text-shine">قبل ما توصل</span></h1>
             <p className="mt-4 text-base text-white/70">شوف خريطة المحل، اختار الطاولة يلي بتعجبك واحجزها بدقيقة. وإذا قاعد عندنا، امسح رمز <span dir="ltr">QR</span> عالطاولة ونادي الويتر من موبايلك.</p>
             <div className="mt-7 flex flex-wrap gap-3">
               <Link href="/book" className="btn-neon px-6 py-3 text-base">احجز طاولة</Link>

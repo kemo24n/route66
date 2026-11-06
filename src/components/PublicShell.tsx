@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export function PublicHeader() {
   return (
-    <header className="sticky top-0 z-40 border-b border-white/5 bg-ink-900/85 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-white/10 bg-ink-900/60 backdrop-blur-2xl">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
         <Link href="/" className="flex items-center gap-2.5">
           <img src="/img/logo.svg" alt="Route 66" className="h-10 w-10" />

@@ -102,7 +102,7 @@ export default function BookPage() {
     <>
       <PublicHeader />
       <main className="mx-auto max-w-3xl px-4 pb-24 pt-6">
-        <h1 className="text-3xl font-bold">احجز طاولة</h1>
+        <h1 className="text-4xl font-bold"><span className="text-shine">احجز طاولة</span></h1>
         <p className="mt-1 text-sm text-white/50">اختار الوقت، بعدين اختار طاولتك من الخريطة</p>
 
         {!enabled && <div className="card mt-6 p-5 text-white/70">الحجز أونلاين موقف حالياً. اتصل فينا لنحجزلك.</div>}
@@ -159,7 +159,7 @@ export default function BookPage() {
             {!tables || !zoneObj ? <div className="py-10 text-center"><Spinner /></div> : (
               <>
                 <div className="-mx-4 overflow-x-auto px-4 pb-1">
-                <BookingMap width={zoneObj.width} height={zoneObj.height} tables={zoneTables} selectedId={tableId} onSelect={pick} />
+                <BookingMap tables={zoneTables} selectedId={tableId} onSelect={pick} />
                 </div>
                 {alt && (
                   <div className="mt-3 rounded-xl border border-neon/30 bg-neon/5 p-3 text-sm">
