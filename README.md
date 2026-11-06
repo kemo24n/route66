@@ -122,4 +122,3 @@ scripts/seed.ts           Route 66 menu, floor plan, accounts, demo data
 ```
 
 Powered by Solunera · @soluneragency
-"# route66" 
