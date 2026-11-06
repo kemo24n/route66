@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <path id="arcTop" d="M 30 100 A 70 70 0 0 1 170 100"/>
+    <path id="arcBottom" d="M 38 112 A 62 62 0 0 0 162 112"/>
+  </defs>
+  <circle cx="100" cy="100" r="96" fill="#084607"/>
+  <circle cx="100" cy="100" r="84" fill="none" stroke="#fff" stroke-width="3"/>
+  <rect x="28" y="78" width="144" height="40" rx="6" fill="#fff"/>
+  <text x="100" y="109" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="30" fill="#084607" letter-spacing="2">ROUTE</text>
+  <text x="100" y="152" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="30" fill="#fff">66</text>
+  <text font-family="Arial, sans-serif" font-weight="700" font-size="11" fill="#fff" letter-spacing="2.5">
+    <textPath href="#arcTop" startOffset="50%" text-anchor="middle">ROUTE 66 · CAFÉ</textPath>
+  </text>
+  <text font-family="Arial, sans-serif" font-weight="700" font-size="10" fill="#fff" letter-spacing="2">
+    <textPath href="#arcBottom" startOffset="50%" text-anchor="middle">ENJOY IT YOUR WAY</textPath>
+  </text>
+</svg>

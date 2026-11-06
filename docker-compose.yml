@@ -1,0 +1,35 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: route66
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-change-me}
+      POSTGRES_DB: route66
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U route66"]
+      interval: 5s
+      retries: 10
+
+  app:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgresql://route66:${DB_PASSWORD:-change-me}@db:5432/route66
+      AUTH_SECRET: ${AUTH_SECRET:?set AUTH_SECRET in .env}
+      PUBLIC_URL: ${PUBLIC_URL:-http://localhost:3000}
+      COOKIE_SECURE: ${COOKIE_SECURE:-0}
+      TZ_OFFSET_MINUTES: "180"
+    volumes:
+      - uploads:/app/uploads
+
+volumes:
+  pgdata:
+  uploads:

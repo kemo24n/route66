@@ -1,0 +1,689 @@
+{
+  "restaurant": {
+    "name": "Route 66",
+    "tagline": "Enjoy it your way",
+    "type": "Café & Restaurant",
+    "instagram": "@route66_cafe_",
+    "phone": "0962022020",
+    "address_ar": "حلب - الموكامبو - سنتر الاتحاد",
+    "address_en": "Almogambo - Al Etihad Center, Aleppo, Syria",
+    "followers": "16.9K",
+    "colors": {
+      "menu_green": "#3F6644",
+      "logo_green": "#084607",
+      "white": "#FFFFFF",
+      "note": "sampled from the menu board and the Instagram logo"
+    }
+  },
+  "categories": [
+    "burger",
+    "meals",
+    "salad",
+    "starters",
+    "sandwich",
+    "drinks",
+    "sweets"
+  ],
+  "items": [
+    {
+      "category": "burger",
+      "id": "classic-beef-burger",
+      "name_en": "Classic Beef Burger",
+      "name_ar": "بيف برغر",
+      "description_ar": "لحم بقري - خس - بندورة - بصل مكرمل",
+      "photo": "dishes/burger__classic-beef-burger.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "burger",
+      "id": "diner-meat-beef",
+      "name_en": "Diner Meat Beef",
+      "name_ar": "داينر مايت",
+      "description_ar": "لحم بقري مع شرائح لحم - خس - بندورة",
+      "photo": "dishes/burger__diner-meat-beef.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "burger",
+      "id": "diner-beef",
+      "name_en": "Diner Beef",
+      "name_ar": "داينر بيف",
+      "description_ar": "بيف - موزاريلا - خس - بندورة",
+      "photo": null,
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "burger",
+      "id": "route-66-beef",
+      "name_en": "Route 66 Beef",
+      "name_ar": "روت ٦٦ بيف",
+      "description_ar": "لحم بقري - شيدر - خس - بصل مكرمل",
+      "photo": null,
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "burger",
+      "id": "chicken-burger-bbq-buffalo",
+      "name_en": "Chicken Burger (BBQ - Buffalo)",
+      "name_ar": "برغر دجاج (باربيكيو - بوفالو)",
+      "description_ar": "دجاج كرسبي مع صوص باربيكيو أو بوفالو",
+      "photo": "dishes/burger__chicken-burger-bbq-buffalo.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "burger",
+      "id": "zinger-graffite",
+      "name_en": "Zinger Graffite",
+      "name_ar": "زنجر غرافيت",
+      "description_ar": "زنجر - جبنة شيدر - خس - مايونيز",
+      "photo": "dishes/burger__zinger-graffite.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "burger",
+      "id": "ranch-burger",
+      "name_en": "Ranch Burger",
+      "name_ar": "رانش برغر",
+      "description_ar": "دجاج كرسبي - صوص رانش",
+      "photo": "dishes/burger__ranch-burger.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "burger",
+      "id": "grilled-chicken",
+      "name_en": "Grilled Chicken",
+      "name_ar": "دجاج مشوي",
+      "description_ar": "ستيك دجاج مشوي - جبنة - خس",
+      "photo": null,
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "burger",
+      "id": "beef-steak-burger",
+      "name_en": "Beef Steak Burger",
+      "name_ar": "بيف ستيك",
+      "description_ar": "ستيك لحم - فطر - صوص خاص",
+      "photo": "dishes/burger__beef-steak-burger.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "meals",
+      "id": "nuggets",
+      "name_en": "Nuggets",
+      "name_ar": "ناغيت",
+      "description_ar": "قطع دجاج تقدم مع بطاطا وصوص خاص",
+      "photo": "dishes/meals__nuggets.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "meals",
+      "id": "spicy",
+      "name_en": "Spicy",
+      "name_ar": "سبايسي",
+      "description_ar": "كرسبي دجاج حار مع بطاطا",
+      "photo": "dishes/meals__spicy.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "meals",
+      "id": "creamy-chicken",
+      "name_en": "Creamy Chicken",
+      "name_ar": "دجاج بالكريما",
+      "description_ar": "دجاج بصوص الكريمة مع رز",
+      "photo": "dishes/meals__creamy-chicken.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "meals",
+      "id": "reso-hot",
+      "name_en": "Reso Hot",
+      "name_ar": "ريزو حار",
+      "description_ar": "دجاج حار مع رز",
+      "photo": "dishes/meals__reso-hot.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "meals",
+      "id": "mac-and-cheese",
+      "name_en": "Mac & Cheese",
+      "name_ar": "ماك اند شيز",
+      "description_ar": "معكرونة بالجبنة",
+      "photo": "dishes/meals__mac-and-cheese.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "meals",
+      "id": "beef-brofansal",
+      "name_en": "Beef Brofansal",
+      "name_ar": "بيف بروفنسال",
+      "description_ar": "لحم بقري مع فطر ورز وبطاطا",
+      "photo": "dishes/meals__beef-brofansal.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "salad",
+      "id": "caesar-salad",
+      "name_en": "Caesar Salad",
+      "name_ar": "سلطة سيزر",
+      "description_ar": "خس - توست - دجاج مشوي - صوص السيزر",
+      "photo": "dishes/salad__caesar-salad.jpg",
+      "price": 700,
+      "price_note": "from a Nov 2025-ish influencer post, confirm"
+    },
+    {
+      "category": "salad",
+      "id": "cabbage-salad",
+      "name_en": "Cabbage Salad",
+      "name_ar": "سلطة كابيج",
+      "description_ar": "ملفوف - جزر - ذرة - صوص خاص",
+      "photo": "dishes/salad__cabbage-salad.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "salad",
+      "id": "chef-salad",
+      "name_en": "Chef Salad",
+      "name_ar": "سلطة الشيف",
+      "description_ar": "خس - جرجير - ذرة - لحوم مدخنة",
+      "photo": "dishes/salad__chef-salad.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "salad",
+      "id": "route-66-salad",
+      "name_en": "Route 66 Salad",
+      "name_ar": "سلطة روت ٦٦",
+      "description_ar": "جرجير - فليفلة - دجاج مشوي - صوص خاص",
+      "photo": "dishes/salad__route-66-salad.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "starters",
+      "id": "french-fries",
+      "name_en": "French Fries",
+      "name_ar": "بطاطا مقلية",
+      "description_ar": "",
+      "photo": null,
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "starters",
+      "id": "jalapeno-fries",
+      "name_en": "Jalapeno Fries",
+      "name_ar": "بطاطا هالبينو",
+      "description_ar": "",
+      "photo": "dishes/starters__jalapeno-fries.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "starters",
+      "id": "multied-chicken-fries",
+      "name_en": "Multied Chicken Fries",
+      "name_ar": "بطاطا تشيدر ودجاج كريسبي",
+      "description_ar": "",
+      "photo": "dishes/starters__multied-chicken-fries.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "starters",
+      "id": "onion-rings",
+      "name_en": "Onion Rings",
+      "name_ar": "حلقات البصل",
+      "description_ar": "",
+      "photo": "dishes/starters__onion-rings.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "starters",
+      "id": "mozzarella-finger",
+      "name_en": "Mozzarella Finger",
+      "name_ar": "أصابع موزاريلا",
+      "description_ar": "",
+      "photo": "dishes/starters__mozzarella-finger.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "starters",
+      "id": "wings-buffalo-bbq",
+      "name_en": "Wings (Buffalo, BBQ)",
+      "name_ar": "جوانح (بوفالو، باربيكيو)",
+      "description_ar": "",
+      "photo": "dishes/starters__wings-buffalo-bbq.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "starters",
+      "id": "garlic-bread",
+      "name_en": "Garlic Bread",
+      "name_ar": "خبز بالثوم",
+      "description_ar": "",
+      "photo": "dishes/starters__garlic-bread.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "starters",
+      "id": "route-66-station-mix",
+      "name_en": "Route 66 Station (Mix)",
+      "name_ar": "ميكس روت",
+      "description_ar": "",
+      "photo": "dishes/starters__route-66-station-mix.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "sandwich",
+      "id": "fajita-30cm",
+      "name_en": "Fajita 30 cm",
+      "name_ar": "فاهيتا مع صوص خاص",
+      "description_ar": "",
+      "photo": "dishes/sandwich__fajita-30cm.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "sandwich",
+      "id": "mexican-30cm",
+      "name_en": "Mexican 30 cm",
+      "name_ar": "مكسيكانو الحار",
+      "description_ar": "",
+      "photo": "dishes/sandwich__mexican-30cm.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "sandwich",
+      "id": "tawoq-30cm",
+      "name_en": "Tawoq 30 cm",
+      "name_ar": "طاووق",
+      "description_ar": "",
+      "photo": "dishes/sandwich__tawoq-30cm.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "sandwich",
+      "id": "shawerma-cuesadella",
+      "name_en": "Shawerma Cuesadella",
+      "name_ar": "شاورما كاساديا",
+      "description_ar": "",
+      "photo": "dishes/sandwich__shawerma-cuesadella.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "sandwich",
+      "id": "supreme-chicken",
+      "name_en": "Supreme Chicken",
+      "name_ar": "سوبريم",
+      "description_ar": "",
+      "photo": "dishes/sandwich__supreme-chicken.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "sandwich",
+      "id": "crispy-chicken",
+      "name_en": "Crispy Chicken",
+      "name_ar": "كريسبي",
+      "description_ar": "",
+      "photo": "dishes/sandwich__crispy-chicken.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "drinks",
+      "id": "hot-chocolate",
+      "name_en": "Hot Chocolate",
+      "name_ar": "هوت شوكليت",
+      "description_ar": "",
+      "photo": "dishes/drinks__hot-chocolate.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "drinks",
+      "id": "cafe-latte",
+      "name_en": "Cafe Latte",
+      "name_ar": "كافيه لاتيه",
+      "description_ar": "",
+      "photo": "dishes/drinks__cafe-latte.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "drinks",
+      "id": "espresso-romano",
+      "name_en": "Espresso Romano",
+      "name_ar": "اسبريسو رومانو",
+      "description_ar": "",
+      "photo": "dishes/drinks__espresso-romano.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "drinks",
+      "id": "cappuccino",
+      "name_en": "Cappuccino",
+      "name_ar": "كابتشينو",
+      "description_ar": "",
+      "photo": "dishes/drinks__cappuccino.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "drinks",
+      "id": "soft-tropical",
+      "name_en": "Soft Tropical",
+      "name_ar": "سوفت تروبيكال",
+      "description_ar": "",
+      "photo": "dishes/drinks__soft-tropical.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "drinks",
+      "id": "chocolate-milkshake",
+      "name_en": "Chocolate Milkshake",
+      "name_ar": "ميلك شيك شوكولا",
+      "description_ar": "",
+      "photo": "dishes/drinks__chocolate-milkshake.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "drinks",
+      "id": "pineapple",
+      "name_en": "Pineapple",
+      "name_ar": "أناناس",
+      "description_ar": "",
+      "photo": "dishes/drinks__pineapple.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "drinks",
+      "id": "lemon-mint",
+      "name_en": "Lemon & Mint",
+      "name_ar": "ليمون ونعنع",
+      "description_ar": "",
+      "photo": "dishes/drinks__lemon-mint.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "drinks",
+      "id": "mojito",
+      "name_en": "Mojito",
+      "name_ar": "موهيتو",
+      "description_ar": "",
+      "photo": "dishes/drinks__mojito.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "drinks",
+      "id": "ice-tea",
+      "name_en": "Ice Tea",
+      "name_ar": "آيس تي",
+      "description_ar": "",
+      "photo": "dishes/drinks__ice-tea.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "drinks",
+      "id": "bubble-gum",
+      "name_en": "Bubble Gum",
+      "name_ar": "ببل غم",
+      "description_ar": "",
+      "photo": "dishes/drinks__bubble-gum.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "drinks",
+      "id": "chocola-moo",
+      "name_en": "Chocola Moo",
+      "name_ar": "شوكولا مو",
+      "description_ar": "",
+      "photo": "dishes/drinks__chocola-moo.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "drinks",
+      "id": "mint-milk-soft",
+      "name_en": "Mint Milk Soft",
+      "name_ar": "سوفت حليب ونعنع",
+      "description_ar": "",
+      "photo": "dishes/drinks__mint-milk-soft.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "sweets",
+      "id": "brownies",
+      "name_en": "Brownies",
+      "name_ar": "براونيز",
+      "description_ar": "",
+      "photo": "dishes/sweets__brownies.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "sweets",
+      "id": "chocolate-crepe",
+      "name_en": "Chocolate Crepe",
+      "name_ar": "كريب شوكولا",
+      "description_ar": "",
+      "photo": "dishes/sweets__chocolate-crepe.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "sweets",
+      "id": "route-66-special",
+      "name_en": "Route 66 Special",
+      "name_ar": "روت ٦٦ سبيشال",
+      "description_ar": "",
+      "photo": "dishes/sweets__route-66-special.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "sweets",
+      "id": "crepe-banana",
+      "name_en": "Crepe Banana",
+      "name_ar": "كريب موز",
+      "description_ar": "",
+      "photo": "dishes/sweets__crepe-banana.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "sweets",
+      "id": "crepe-lotus",
+      "name_en": "Crepe Lotus",
+      "name_ar": "كريب لوتس",
+      "description_ar": "",
+      "photo": "dishes/sweets__crepe-lotus.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "sweets",
+      "id": "crepe-pistachio",
+      "name_en": "Crepe Pistachio",
+      "name_ar": "كريب فستق",
+      "description_ar": "",
+      "photo": "dishes/sweets__crepe-pistachio.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "sweets",
+      "id": "fruit-tart",
+      "name_en": "Fruit Tart",
+      "name_ar": "تارت فواكه",
+      "description_ar": "",
+      "photo": "dishes/sweets__fruit-tart.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "sweets",
+      "id": "special-cake-route66",
+      "name_en": "Special Cake Route66",
+      "name_ar": "سبيشال كيك روت",
+      "description_ar": "",
+      "photo": "dishes/sweets__special-cake-route66.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "sweets",
+      "id": "tart-cinnamon-apple",
+      "name_en": "Tart Cinnamon Apple",
+      "name_ar": "تارت تفاح وقرفة",
+      "description_ar": "",
+      "photo": "dishes/sweets__tart-cinnamon-apple.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "sweets",
+      "id": "monica-cake",
+      "name_en": "Monica Cake",
+      "name_ar": "مونيكا كيك",
+      "description_ar": "",
+      "photo": "dishes/sweets__monica-cake.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "sweets",
+      "id": "arizona-cake",
+      "name_en": "Arizona Cake",
+      "name_ar": "أريزونا كيك",
+      "description_ar": "",
+      "photo": "dishes/sweets__arizona-cake.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "sweets",
+      "id": "croissant-route-66",
+      "name_en": "Croissant Route 66",
+      "name_ar": "كروسان روت",
+      "description_ar": "",
+      "photo": "dishes/sweets__croissant-route-66.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "meals",
+      "id": "chicken-route",
+      "name_en": "Chicken Route",
+      "name_ar": "تشكن روت",
+      "description_ar": "دجاج مغطى بالجبن مع رز وبطاطا",
+      "photo": "dishes/meals__chicken-route.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "meals",
+      "id": "chicken-bermuda",
+      "name_en": "Chicken Bermuda",
+      "name_ar": "تشكن برمودا",
+      "description_ar": "",
+      "photo": "dishes/meals__chicken-bermuda.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "meals",
+      "id": "mexicano-route",
+      "name_en": "Mexicano Route",
+      "name_ar": "مكسيكانو روت",
+      "description_ar": "",
+      "photo": "dishes/meals__mexicano-route.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "meals",
+      "id": "penne",
+      "name_en": "Penne Route 66",
+      "name_ar": "بينيه روت",
+      "description_ar": "",
+      "photo": "dishes/meals__penne.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "meals",
+      "id": "cordon-bleu",
+      "name_en": "Cordon Bleu",
+      "name_ar": "كوردون بلو",
+      "description_ar": "",
+      "photo": null,
+      "price": 1050,
+      "price_note": "from a Nov 2025-ish influencer post, confirm"
+    },
+    {
+      "category": "meals",
+      "id": "escalope-route",
+      "name_en": "Escalope Route",
+      "name_ar": "اسكالوب روت",
+      "description_ar": "",
+      "photo": null,
+      "price": 1000,
+      "price_note": "from a Nov 2025-ish influencer post, confirm"
+    },
+    {
+      "category": "burger",
+      "id": "mushroom-swiss-burger",
+      "name_en": "Mushroom & Swiss Burger",
+      "name_ar": "برغر مشروم وسويس",
+      "description_ar": "",
+      "photo": "dishes/burger__mushroom-swiss-burger.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    },
+    {
+      "category": "burger",
+      "id": "chicken-mozzarella-burger",
+      "name_en": "Chicken Mozzarella Burger",
+      "name_ar": "برغر دجاج موزاريلا",
+      "description_ar": "",
+      "photo": "dishes/burger__chicken-mozzarella-burger.jpg",
+      "price": null,
+      "price_note": "waiting for owner's price list"
+    }
+  ]
+}
