@@ -42,7 +42,7 @@ export default function RiskPage() {
     <div className="space-y-5">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div>
-          <h1 className="text-2xl font-bold">كشف الحجوزات الوهمية</h1>
+          <h1 className="font-display text-4xl leading-none">كشف الحجوزات الوهمية</h1>
           <p className="text-sm text-white/50">كل حجز أونلاين بينفحص قبل ما يحجز الطاولة. النظام بيتعلم من الحجوزات يلي ما إجا أصحابها.</p>
         </div>
         <button className="btn-neon" onClick={retrain} disabled={busy}>{busy ? <Spinner /> : "درّب النظام على آخر البيانات"}</button>

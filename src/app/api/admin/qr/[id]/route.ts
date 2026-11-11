@@ -3,6 +3,8 @@ import { eq } from "drizzle-orm";
 import { db, schema } from "@/db";
 import { handle, fail } from "@/lib/http";
 import { requirePerm } from "@/lib/auth";
+import { getSettings } from "@/lib/settings";
+import { publicBase } from "@/lib/publicUrl";
 
 type Ctx = { params: Promise<{ id: string }> };
 
@@ -17,7 +19,7 @@ export const GET = handle(async (req: Request, { params }: Ctx) => {
     const qrToken = Buffer.from(crypto.getRandomValues(new Uint8Array(12))).toString("base64url");
     [t] = await db.update(schema.tables).set({ qrToken }).where(eq(schema.tables.id, id)).returning();
   }
-  const base = process.env.PUBLIC_URL || `${url.protocol}//${url.host}`;
+  const base = publicBase(req, await getSettings());
   const svg = await QRCode.toString(`${base}/t/${t.qrToken}`, { type: "svg", margin: 1, color: { dark: "#084607", light: "#ffffff" }, errorCorrectionLevel: "M" });
   return new Response(svg, { headers: { "Content-Type": "image/svg+xml", "Cache-Control": "no-store" } });
 });

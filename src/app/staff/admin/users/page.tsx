@@ -38,7 +38,7 @@ export default function UsersPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">الموظفين</h1>
+        <h1 className="font-display text-4xl leading-none">الموظفين</h1>
         <button className="btn-neon" onClick={() => setEdit({ role: "WAITER", active: true })}>+ موظف</button>
       </div>
       {!list ? <Spinner /> : (

@@ -13,5 +13,5 @@ export const GET = handle(async (req: Request) => {
   if (!s.bookingEnabled) return ok({ enabled: false, dates, slots: [] });
   const date = q.date ?? dates[0];
   if (!dates.includes(date)) return fail(400, "التاريخ خارج فترة الحجز");
-  return ok({ enabled: true, dates, date, maxParty: s.maxPartySize, slots: await slotsWithAvailability(date, q.party, s) });
+  return ok({ enabled: true, dates, date, maxParty: s.maxPartySize, slots: await slotsWithAvailability(date, q.party, s), info: { openTime: s.openTime, closeTime: s.closeTime, phone: s.phone, address: s.addressAr, durationMin: s.bookingDurationMin } });
 });

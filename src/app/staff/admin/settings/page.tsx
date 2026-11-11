@@ -29,7 +29,7 @@ export default function SettingsPage() {
 
   return (
     <div className="max-w-4xl space-y-4">
-      <h1 className="text-2xl font-bold">الإعدادات</h1>
+      <h1 className="font-display text-4xl leading-none">الإعدادات</h1>
       <section className="card p-5">
         <h2 className="mb-1 font-semibold">العملة والضريبة</h2>
         <p className="mb-4 text-xs text-white/40">بتنطبق على الفواتير الجديدة. الفواتير القديمة بتحتفظ بالنسب يلي انعملت فيها.</p>
@@ -50,6 +50,7 @@ export default function SettingsPage() {
               <Field label="العنوان"><input className="input" value={s.addressAr} onChange={(e) => set("addressAr", e.target.value)} /></Field>
               <Field label="رقم الهاتف"><input className="input num" value={s.phone} onChange={(e) => set("phone", e.target.value)} /></Field>
               <Field label="واتساب لتأكيد الحجوزات" hint="بالصيغة الدولية بدون + (963...)"><input className="input num" value={s.whatsapp} onChange={(e) => set("whatsapp", e.target.value)} /></Field>
+              <Field label="عنوان الموقع (للـQR)" hint="فاضي = العنوان يلي فاتح عليه لوحة التحكم. مثال: https://route66.sy"><input className="input font-sign" dir="ltr" value={s.publicUrl ?? ""} onChange={(e) => set("publicUrl", e.target.value)} placeholder="https://..." /></Field>
               <Field label="يفتح الساعة"><input className="input" type="time" value={s.openTime} onChange={(e) => set("openTime", e.target.value)} /></Field>
               <Field label="يسكّر الساعة"><input className="input" type="time" value={s.closeTime} onChange={(e) => set("closeTime", e.target.value)} /></Field>
             </div>

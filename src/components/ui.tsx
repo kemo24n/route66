@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState, createContext, useContext, useCallback } from "react";
+import { motion, AnimatePresence } from "motion/react";
 
 export function Modal({ open, onClose, title, children, wide }: { open: boolean; onClose: () => void; title?: string; children: React.ReactNode; wide?: boolean }) {
   useEffect(() => {
@@ -8,19 +9,24 @@ export function Modal({ open, onClose, title, children, wide }: { open: boolean;
     window.addEventListener("keydown", k);
     return () => window.removeEventListener("keydown", k);
   }, [open, onClose]);
-  if (!open) return null;
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/70 p-0 sm:items-center sm:p-4" onClick={onClose}>
-      <div className={`card max-h-[92vh] w-full overflow-y-auto rounded-b-none p-5 sm:rounded-2xl ${wide ? "sm:max-w-3xl" : "sm:max-w-md"}`} onClick={(e) => e.stopPropagation()}>
-        {title && (
-          <div className="mb-4 flex items-center justify-between">
-            <h3 className="text-lg font-bold">{title}</h3>
-            <button onClick={onClose} className="rounded-lg p-1.5 text-white/50 hover:bg-white/10 hover:text-white" aria-label="إغلاق">✕</button>
-          </div>
-        )}
-        {children}
-      </div>
-    </div>
+    <AnimatePresence>
+      {open && (
+        <motion.div className="fixed inset-0 z-50 flex items-end justify-center bg-black/70 p-0 backdrop-blur-[2px] sm:items-center sm:p-4" onClick={onClose}
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.18 }}>
+          <motion.div className={`max-h-[92vh] w-full overflow-y-auto rounded-t-2xl border border-road-line bg-[#1b1b18] p-5 shadow-[0_30px_80px_-20px_rgba(0,0,0,.8)] sm:rounded-2xl ${wide ? "sm:max-w-3xl" : "sm:max-w-md"}`}
+            onClick={(e) => e.stopPropagation()} initial={{ y: 40, scale: 0.97 }} animate={{ y: 0, scale: 1 }} exit={{ y: 30, opacity: 0 }} transition={{ type: "spring", stiffness: 380, damping: 32 }}>
+            {title && (
+              <div className="mb-4 flex items-center justify-between border-b border-road-line pb-3">
+                <h3 className="text-lg font-bold">{title}</h3>
+                <button onClick={onClose} className="grid h-8 w-8 place-items-center rounded-md text-white/50 hover:bg-white/10 hover:text-white" aria-label="إغلاق">✕</button>
+              </div>
+            )}
+            {children}
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
 
@@ -33,13 +39,15 @@ export function Empty({ children }: { children: React.ReactNode }) {
 }
 
 export function Stat({ label, value, sub, tone }: { label: string; value: React.ReactNode; sub?: React.ReactNode; tone?: "good" | "bad" | "warn" }) {
-  const c = tone === "good" ? "text-brand-300" : tone === "bad" ? "text-red-400" : tone === "warn" ? "text-neon" : "text-white";
+  const c = tone === "good" ? "text-[#7fd49a]" : tone === "bad" ? "text-[#ff8a75]" : tone === "warn" ? "text-line" : "text-white";
+  const bar = tone === "good" ? "bg-forest-sign" : tone === "bad" ? "bg-tail" : tone === "warn" ? "bg-line" : "bg-road-4";
   return (
-    <div className="card p-4">
-      <div className="text-xs text-white/50">{label}</div>
-      <div className={`mt-1 text-2xl font-bold ${c}`}>{value}</div>
-      {sub && <div className="mt-0.5 text-xs text-white/40">{sub}</div>}
-    </div>
+    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="card relative overflow-hidden p-4 pr-5">
+      <span className={`absolute inset-y-3 right-0 w-1 rounded-l ${bar}`} />
+      <div className="text-xs font-medium text-white/50">{label}</div>
+      <div className={`mt-1.5 font-sign text-[26px] font-black leading-none ${c}`}>{value}</div>
+      {sub && <div className="mt-2 text-xs text-white/40">{sub}</div>}
+    </motion.div>
   );
 }
 
@@ -81,10 +89,16 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
   return (
     <ToastCtx.Provider value={push}>
       {children}
-      <div className="pointer-events-none fixed bottom-4 left-1/2 z-[60] flex -translate-x-1/2 flex-col items-center gap-2">
-        {list.map((t) => (
-          <div key={t.id} className={`pointer-events-auto rounded-xl px-4 py-2.5 text-sm font-medium shadow-xl ${t.tone === "ok" ? "bg-brand-400 text-white" : "bg-red-600 text-white"}`}>{t.text}</div>
-        ))}
+      <div className="pointer-events-none fixed bottom-5 left-1/2 z-[60] flex -translate-x-1/2 flex-col items-center gap-2">
+        <AnimatePresence initial={false}>
+          {list.map((t) => (
+            <motion.div key={t.id} layout initial={{ opacity: 0, y: 24, scale: 0.9 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 12, scale: 0.95 }} transition={{ type: "spring", stiffness: 420, damping: 30 }}
+              className={`pointer-events-auto flex items-center gap-2.5 rounded-lg border px-4 py-2.5 text-sm font-semibold shadow-[0_12px_30px_-10px_rgba(0,0,0,.7)] ${t.tone === "ok" ? "border-forest-sign bg-[#16301f] text-white" : "border-tail bg-[#3a1610] text-white"}`}>
+              <span className={`grid h-5 w-5 place-items-center rounded text-[11px] font-black ${t.tone === "ok" ? "bg-forest-sign" : "bg-tail"}`}>{t.tone === "ok" ? "✓" : "!"}</span>
+              {t.text}
+            </motion.div>
+          ))}
+        </AnimatePresence>
       </div>
     </ToastCtx.Provider>
   );

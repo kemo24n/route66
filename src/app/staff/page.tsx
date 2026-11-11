@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { api, useLive } from "@/lib/client";
 import { Money, Spinner, Stat } from "@/components/ui";
-import { Bars } from "@/components/Bars";
+import { Bars, HBar } from "@/components/Bars";
+import { CountUp } from "@/components/motion";
 import { addDays } from "@/lib/time";
 import { useMe } from "@/components/MeContext";
 
@@ -34,12 +35,15 @@ export default function Dashboard() {
 
   return (
     <div className="space-y-4">
-      <div>
-        <h1 className="text-2xl font-bold">أهلا {me?.name}</h1>
-        <p className="text-sm text-white/50">هيك ماشي اليوم بروت</p>
+      <div className="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <div className="font-sign text-[11px] font-extrabold uppercase tracking-[.22em] text-line">Today at Route 66</div>
+          <h1 className="mt-1 font-display text-5xl leading-none">أهلا {me?.name}.</h1>
+        </div>
+        <div className="flex gap-2"><Link href="/staff/floor" className="btn-neon">افتح الصالة</Link><Link href="/staff/bookings" className="btn-ghost">الحجوزات</Link></div>
       </div>
       <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-        <Stat label="مبيعات اليوم" value={todayR ? <Money v={todayR.summary.total} /> : <Spinner />} sub={todayR && `${todayR.summary.invoices} فاتورة · متوسط ${todayR.summary.avgTicket.toLocaleString("en-US")}`} tone="good" />
+        <Stat label="مبيعات اليوم" value={todayR ? <><CountUp value={todayR.summary.total} /> <span className="text-sm font-semibold opacity-60">ل.س</span></> : <Spinner />} sub={todayR && `${todayR.summary.invoices} فاتورة · متوسط ${todayR.summary.avgTicket.toLocaleString("en-US")}`} tone="good" />
         <Stat label="طاولات شغالة هلق" value={floor ? `${open.length} / ${floor.tables.length}` : <Spinner />} sub={<>قيمة الطلبات المفتوحة <Money v={openValue} /></>} />
         <Stat label="حجوزات اليوم" value={bk ? bkActive : <Spinner />} sub={bk && bk.waiting > 0 ? `${bk.waiting} بانتظار قرار` : "كلها مرتبة"} tone={bk && bk.waiting > 0 ? "warn" : undefined} />
         <Stat label="نداءات مفتوحة" value={calls} tone={calls > 0 ? "warn" : undefined} sub={<Link href="/staff/requests" className="text-neon">شوف النداءات</Link>} />
@@ -51,9 +55,7 @@ export default function Dashboard() {
         </div>
         <div className="card p-4">
           <div className="mb-3 text-sm font-semibold">الأكتر طلباً (أسبوعين)</div>
-          {week?.topItems.slice().sort((a, b) => b.qty - a.qty).slice(0, 7).map((i, k) => (
-            <div key={i.name} className="flex justify-between border-b border-white/5 py-1.5 text-sm last:border-0"><span><span className="num text-white/40">{k + 1}.</span> {i.name}</span><span className="num text-white/60">{i.qty}</span></div>
-          ))}
+          {week && <HBar rows={week.topItems.slice().sort((a, b) => b.qty - a.qty).slice(0, 7).map((i) => ({ name: i.name, v: i.qty }))} />}
         </div>
       </div>
       <div className="grid gap-3 sm:grid-cols-3">

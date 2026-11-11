@@ -2,7 +2,8 @@
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { api, useLive, minutesSince } from "@/lib/client";
-import { FloorMap, type MapTable } from "@/components/FloorMap";
+import type { MapTable } from "@/components/FloorMap";
+import { BookingMap } from "@/components/BookingMap";
 import { Modal, Spinner, useToast, Money, RiskBadge, StatusBadge } from "@/components/ui";
 import { fmtTime } from "@/lib/time";
 import { useMe } from "@/components/MeContext";
@@ -82,33 +83,29 @@ export default function FloorPage() {
         </div>
       </div>
 
-      <div className="grid gap-4 xl:grid-cols-[1fr_300px]">
-        <div className="card p-3">
-          {z && (
-            <FloorMap width={z.width} height={z.height} tables={tables} selectedId={selected?.id} onSelect={(t) => { setSel(t as FT); setGuests((t as FT).booking?.partySize ?? Math.min(4, t.seats)); }}
-              look={(t) => {
-                const x = t as FT;
-                const call = x.requests.length > 0;
-                const soon = x.booking && new Date(x.booking.startAt).getTime() - Date.now() < 60 * 60000;
-                if (x.order) {
-                  return {
-                    fill: x.order.ready ? "#1f4f2a" : "#4a3b12", stroke: x.order.ready ? "#76b783" : "#F2C14E", text: "#fff",
-                    sub: `${x.order.total.toLocaleString("en-US")}`,
-                    badge: call ? "!" : x.order.ready ? `${x.order.ready}✓` : x.order.draft ? "✎" : undefined,
-                    badgeColor: call ? "#F2C14E" : x.order.ready ? "#76b783" : "#94a3b8", pulse: call || x.order.ready > 0,
-                  };
-                }
-                if (call) return { fill: "#1d4a25", stroke: "#F2C14E", badge: "!", pulse: true };
-                if (x.booking && soon) return { fill: "#16324a", stroke: "#60a5fa", sub: `حجز ${fmtTime(x.booking.startAt)}`, badge: x.booking.riskLevel === "HIGH" ? "⚑" : undefined, badgeColor: "#f87171" };
-                if (x.booking) return { fill: "#17261a", stroke: "#3b6ea5", sub: `حجز ${fmtTime(x.booking.startAt)}` };
-                return { fill: "#17261a", stroke: "#334436" };
-              }} />
-          )}
-          <div className="mt-2 flex flex-wrap gap-3 px-1 text-[11px] text-white/45">
-            <span>■ <span className="text-[#F2C14E]">عليها طلب</span></span>
-            <span>■ <span className="text-brand-300">في أكل جاهز</span></span>
-            <span>■ <span className="text-sky-400">محجوزة قريباً</span></span>
-            <span>! نداء من الطاولة</span>
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-4 xl:grid-cols-[minmax(0,1fr)_300px]">
+        <div className="card overflow-hidden">
+          <div className="scrollbar-none overflow-x-auto bg-[#080e0a]">
+            <div className="min-w-[760px]">
+              <BookingMap tables={tables} selectedId={selected?.id ?? null} onSelect={(t) => { setSel(t as FT); setGuests((t as FT).booking?.partySize ?? Math.min(4, t.seats)); }}
+                paint={(t) => {
+                  const x = t as FT;
+                  const call = x.requests.length > 0;
+                  const soon = x.booking && new Date(x.booking.startAt).getTime() - Date.now() < 60 * 60000;
+                  const lateBk = x.booking && x.booking.status === "CONFIRMED" && Date.now() - new Date(x.booking.startAt).getTime() > 20 * 60000;
+                  if (call) return { tone: "call", badge: "!", sub: x.requests[0].type === "BILL" ? "بدهم الحساب" : x.requests[0].type === "ORDER" ? "طلب من الموبايل" : "نداء", tip: "في نداء من الطاولة" };
+                  if (x.order) {
+                    if (x.order.ready) return { tone: "ready", badge: String(x.order.ready), sub: "أكل جاهز", tip: `طلب #${x.order.number} · ${x.order.total.toLocaleString("en-US")}` };
+                    return { tone: "order", sub: x.order.total.toLocaleString("en-US"), badge: x.order.draft ? "✎" : undefined, tip: `طلب #${x.order.number} · من ${Math.max(0, Math.round((Date.now() - new Date(x.order.createdAt).getTime()) / 60000))} د` };
+                  }
+                  if (lateBk) return { tone: "late", sub: `متأخرين ${fmtTime(x.booking!.startAt)}`, tip: x.booking!.name };
+                  if (x.booking && soon) return { tone: "booked", sub: `حجز ${fmtTime(x.booking.startAt)}`, badge: x.booking.riskLevel === "HIGH" ? "⚑" : undefined, tip: `${x.booking.name} · ${x.booking.partySize} أشخاص` };
+                  return { tone: "idle", sub: x.booking ? `حجز ${fmtTime(x.booking.startAt)}` : undefined, tip: "فاضية" };
+                }} />
+            </div>
+          </div>
+          <div className="flex flex-wrap gap-4 border-t border-road-line px-4 py-3 text-xs text-white/55">
+            <Dot c="#e2a33c" l="عليها طلب" /><Dot c="#4fbf6c" l="أكل جاهز للتقديم" /><Dot c="#f5d34a" l="نداء من الطاولة" /><Dot c="#5d8fc9" l="محجوزة خلال ساعة" /><Dot c="#d2412f" l="حجز متأخر" /><Dot c="#a98a63" l="فاضية" />
           </div>
         </div>
 
@@ -199,4 +196,8 @@ export default function FloorPage() {
       </Modal>
     </div>
   );
+}
+
+function Dot({ c, l }: { c: string; l: string }) {
+  return <span className="flex items-center gap-1.5"><i className="h-2.5 w-2.5 rounded-sm" style={{ background: c }} />{l}</span>;
 }

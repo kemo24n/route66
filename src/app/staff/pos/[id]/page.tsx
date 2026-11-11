@@ -60,7 +60,7 @@ export default function PosPage({ params }: { params: Promise<{ id: string }> })
   const served = (l: Line) => call(() => api(`/api/staff/order-items/${l.id}`, { method: "PATCH", body: { status: "SERVED" } }));
 
   return (
-    <div className="grid gap-4 lg:grid-cols-[1fr_380px]">
+    <div className="grid grid-cols-[minmax(0,1fr)] gap-4 lg:grid-cols-[minmax(0,1fr)_380px]">
       {/* menu */}
       <div className={`min-w-0 ${closed ? "pointer-events-none opacity-40" : ""}`}>
         <div className="mb-3 flex items-center gap-2">

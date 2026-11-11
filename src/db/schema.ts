@@ -57,6 +57,8 @@ export const settings = pgTable("settings", {
   riskReviewAbove: integer("risk_review_above").default(70).notNull(),
   bookingEnabled: boolean("booking_enabled").default(true).notNull(),
   qrOrderingEnabled: boolean("qr_ordering_enabled").default(true).notNull(),
+  // the address customers open (printed inside the table QR codes). empty = use the address the dashboard is opened on
+  publicUrl: text("public_url"),
   updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
 });
 

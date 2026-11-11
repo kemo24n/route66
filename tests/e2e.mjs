@@ -155,6 +155,26 @@ async function main() {
   const blocked = await call(`/api/public/table/${tok}/request`, { body: { type: "CALL_WAITER", deviceId: devB } });
   ok(blocked.status === 403, "device with 3 rejected requests is blocked");
 
+  console.log("\nQR codes");
+  const qrList = await fetch(BASE + "/api/admin/qr-tables", { headers: { Cookie: owner, "x-forwarded-host": "route66.example.com", "x-forwarded-proto": "https" } }).then((r) => r.json());
+  ok(qrList.base === "https://route66.example.com" && qrList.local === false, `QR address follows the real domain behind a proxy (${qrList.base})`);
+  ok(qrList.tables.length >= 13 && qrList.tables.every((t) => t.path.startsWith("/t/")), `every table has a QR link (${qrList.tables.length})`);
+  const qrLocal = await call("/api/admin/qr-tables", { cookie: owner });
+  ok(qrLocal.data.local === true, "localhost address is flagged as not reachable from phones");
+  const t5 = qrList.tables.find((t) => t.label === "5");
+  ok((await call(t5.path)).status === 200 && (await call(`/api/public/table/${t5.token}`)).data.table.label === "5", "scanned link opens table 5's page");
+  await call("/api/admin/settings", { cookie: owner, method: "PATCH", body: { publicUrl: "https://route66.sy/" } });
+  const qrSaved = await call("/api/admin/qr-tables", { cookie: owner });
+  ok(qrSaved.data.base === "https://route66.sy", "saved site address is used (trailing slash removed)");
+  const svg = await fetch(BASE + `/api/admin/qr/${t5.id}`, { headers: { Cookie: owner } }).then((r) => r.text());
+  ok(svg.startsWith("<svg"), "server QR image still works");
+  await call("/api/admin/settings", { cookie: owner, method: "PATCH", body: { publicUrl: "" } });
+  const badUrl = await call("/api/admin/settings", { cookie: owner, method: "PATCH", body: { publicUrl: "route66 site" } });
+  ok(badUrl.status === 400, "invalid site address refused");
+  const rot = await call("/api/admin/qr-tables", { cookie: owner, body: { tableId: t5.id } });
+  ok((await call(`/api/public/table/${t5.token}`)).status === 404 && (await call(`/api/public/table/${rot.data.token}`)).status === 200, "re-issued code works, old printed code stops");
+  ok((await call("/api/admin/qr-tables", { cookie: waiter })).status === 403, "waiter can't manage QR codes");
+
   console.log("\nStaff booking actions + training");
   const bks = await call(`/api/staff/bookings?date=${date}`, { cookie: owner });
   const fb = bks.data.bookings.find((b) => b.code === fake1.data.code);

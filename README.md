@@ -42,6 +42,19 @@ This was the owner's main worry, so it gets its own section.
 
 **Orders from the table QR.** Nothing reaches the kitchen directly. The waiter gets the order, checks someone is really sitting there, and accepts it. A device with 3 rejected requests is blocked. Each table has its own secret QR token (it can be re-issued if a code leaks), there's one open call per type per table, and rate limits per device and network.
 
+## Table QR codes (fixed)
+
+The old version printed `PUBLIC_URL` inside every code, and that defaulted to `http://localhost:3000`. Phones scanning it went nowhere.
+
+Now:
+- Codes are generated in the browser from the address the dashboard is actually open on (proxy-aware on the server too).
+- **Dashboard → رموز QR**: every table's code, a big preview you can scan with your phone to test, "open as customer", copy link, download a print-ready card (PNG, 1200×1680), download all cards, print an A4 sheet, and "new code" for a table (the old card stops working).
+- A red warning shows if the address is `localhost` or a private network IP, because phones outside can't open it. Fix: open the dashboard from the real domain, or set the address in Settings / on the QR page.
+
+## Design
+
+Roadside-diner identity built for Route 66: cream menu paper, asphalt, highway-sign green, road-line yellow, tail-light red. Lalezar for headlines, Readex Pro for text, Overpass (the highway-sign face) for numbers. Motion everywhere it helps: draggable photo deck, menu board with a photo that follows the cursor, live 3D floor teaser, a booking "trip" with a car on the progress road, a ticket that prints with a stamp, a service-bell button and items flying into the cart on the table page. Staff side uses the same 3D map for the live floor.
+
 ## Logins (change the passwords before going live)
 
 | user | role | password |
@@ -74,12 +87,11 @@ For a clean database without demo data: `SEED_RESET=1 npm run db:seed` (this **w
 ```bash
 echo "AUTH_SECRET=$(openssl rand -hex 32)" > .env
 echo "DB_PASSWORD=$(openssl rand -hex 12)" >> .env
-echo "PUBLIC_URL=https://your-domain" >> .env
 echo "COOKIE_SECURE=1" >> .env
 docker compose up -d --build
 ```
 
-**Render:** `render.yaml` is ready (web service + Postgres + a disk for uploaded photos). Set `PUBLIC_URL` to the real domain, because it's printed inside the table QR codes.
+**Render:** `render.yaml` is ready (web service + Postgres + a disk for uploaded photos).
 
 The start command runs migrations and the base seed every time. That's safe: it never overwrites the owner's prices, menu edits or floor plan.
 
@@ -88,7 +100,7 @@ Live screens (kitchen, floor, calls) use Server-Sent Events from a single server
 ## Before going live with Route 66
 
 1. **Prices:** the seed uses starting prices (Caesar 700, Cordon Bleu 1050, Escalope 1000 came from their Instagram; the rest are placeholders). Enter the owner's list in *Menu & prices*.
-2. **Real floor plan:** photograph the place and redraw it in *Floor-plan editor*. Then *Print QR* and put a card on each table.
+2. **Floor plan:** the seed follows the owner's hand-drawn plan (tables 1-5 inside, 10-17 outside). Adjust it in *Floor-plan editor*, then print the cards from *رموز QR* and put each one on its table.
 3. **Settings:** USD rate, tax, service, opening hours, WhatsApp number for confirmations.
 4. **Passwords:** change every default password in *Staff*.
 5. Six items have no photo yet (Diner Beef, Route 66 Beef, Grilled Chicken, French Fries, Cordon Bleu, Escalope Route). Add them from the edit dialog.
@@ -103,7 +115,7 @@ Live screens (kitchen, floor, calls) use Server-Sent Events from a single server
 
 ```bash
 npm test                      # unit tests: risk engine, money, time zone, slots
-npm run test:e2e              # 46 end-to-end checks against a running server (creates rows: use a test DB)
+npm run test:e2e              # 55 end-to-end checks against a running server (creates rows: use a test DB)
 ```
 
 ## Code map

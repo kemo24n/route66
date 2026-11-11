@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { api, useLive, beep, minutesSince } from "@/lib/client";
 import { Empty, Spinner, useToast } from "@/components/ui";
+import { motion, AnimatePresence } from "motion/react";
 
 type Item = { id: string; name: string; qty: number; notes: string | null; status: string; station: string; sentAt: string; fromQr: boolean };
 type Ticket = { orderId: string; number: number; type: string; table: string | null; waiter: string | null; notes: string | null; firstSentAt: string; items: Item[] };
@@ -61,16 +62,17 @@ export default function KitchenPage() {
 
       {!data ? <div className="py-20 text-center"><Spinner /></div> : active.length === 0 && done.length === 0 ? <Empty>ما في طلبات هلق</Empty> : (
         <>
-          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+          <motion.div layout className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+            <AnimatePresence mode="popLayout">
             {active.map((t) => {
               const age = minutesSince(t.firstSentAt);
               const tone = age >= 20 ? "border-red-500 bg-red-500/5" : age >= 12 ? "border-neon/70" : "border-white/10";
               const pending = t.items.filter((i) => i.status !== "READY");
               return (
-                <div key={t.orderId} className={`flex flex-col rounded-2xl border-2 bg-ink-800 ${tone}`}>
+                <motion.div key={t.orderId} layout initial={{ opacity: 0, y: -30, scale: 0.92 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, scale: 0.85, x: 80 }} transition={{ type: "spring", stiffness: 300, damping: 28 }} className={`flex flex-col overflow-hidden rounded-xl border-2 bg-road-2 ${tone}`}>
                   <div className="flex items-center justify-between border-b border-white/5 p-3">
                     <div>
-                      <div className="text-2xl font-bold">{t.type === "TAKEAWAY" ? "سفري" : `طاولة ${t.table}`}</div>
+                      <div className="font-display text-3xl leading-none">{t.type === "TAKEAWAY" ? "سفري" : `طاولة ${t.table}`}</div>
                       <div className="text-xs text-white/50">#{t.number}{t.waiter ? ` · ${t.waiter}` : ""}</div>
                     </div>
                     <div className={`num text-2xl font-bold ${age >= 20 ? "text-red-400" : age >= 12 ? "text-neon" : "text-white/70"}`}>{age}′</div>
@@ -95,10 +97,11 @@ export default function KitchenPage() {
                     <button onClick={() => move(pending.filter((i) => i.status === "NEW").map((i) => i.id), "PREPARING")} disabled={!pending.some((i) => i.status === "NEW")} className="btn-ghost py-3">بلّشت</button>
                     <button onClick={() => move(pending.map((i) => i.id), "READY")} className="btn-primary py-3 text-base">جاهز ✓</button>
                   </div>
-                </div>
+                </motion.div>
               );
             })}
-          </div>
+            </AnimatePresence>
+          </motion.div>
           {done.length > 0 && (
             <div className="mt-6">
               <div className="mb-2 text-sm text-white/50">جاهز ونطر الويتر</div>

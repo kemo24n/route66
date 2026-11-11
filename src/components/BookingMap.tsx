@@ -2,7 +2,18 @@
 import { useState, type ReactNode } from "react";
 import type { MapTable } from "./FloorMap";
 
-type BT = MapTable & { state: "free" | "busy" | "small" | "closed"; fit: boolean };
+type BT = MapTable & { state?: "free" | "busy" | "small" | "closed"; fit?: boolean };
+
+/** staff mode: colour each table by what's happening on it */
+export type Paint = { tone: "idle" | "order" | "ready" | "call" | "booked" | "late"; sub?: string; badge?: string; tip?: string };
+const TONES: Record<Paint["tone"], { top: string; left: string; right: string; aura?: string; ring: string; text: string }> = {
+  idle: { top: "#a98a63", left: "#6d5236", right: "#5a4229", ring: "#6b6b60", text: "#e8e2d4" },
+  order: { top: "#e2a33c", left: "#9c6a17", right: "#7d540f", aura: "#F5C518", ring: "#F5C518", text: "#F5C518" },
+  ready: { top: "#4fbf6c", left: "#257a3d", right: "#1c5f2f", aura: "#4fd172", ring: "#4fd172", text: "#7fe39b" },
+  call: { top: "#f5d34a", left: "#b39318", right: "#8f7510", aura: "#F5C518", ring: "#F5C518", text: "#F5C518" },
+  booked: { top: "#5d8fc9", left: "#2f5a8c", right: "#244870", aura: "#60a5fa", ring: "#60a5fa", text: "#9cc7ff" },
+  late: { top: "#d2412f", left: "#8a2218", right: "#6b1a12", aura: "#ff3b30", ring: "#ff6b5e", text: "#ff9a90" },
+};
 const FONT = "'IBM Plex Sans Arabic',sans-serif";
 const K = 0.62, CX = 0.866 * K, CY = 0.5 * K;
 const P = (x: number, y: number, z = 0): [number, number] => [(x - y) * CX, (x + y) * CY - z * K];
@@ -38,23 +49,25 @@ function Plant({ x, y }: { x: number; y: number }) {
   </g>);
 }
 
-export function BookingMap({ tables, selectedId, onSelect }: {
-  width?: number; height?: number; tables: BT[]; selectedId: string | null; onSelect: (t: MapTable) => void;
+export function BookingMap({ tables, selectedId, onSelect, paint }: {
+  width?: number; height?: number; tables: BT[]; selectedId: string | null; onSelect: (t: MapTable) => void; paint?: (t: MapTable) => Paint;
 }) {
   const [hover, setHover] = useState<string | null>(null);
   const hov = tables.find((t) => t.id === hover);
-  const label = (t: BT) => t.state === "free" ? "متاحة" : t.state === "busy" ? "محجوزة" : t.state === "small" ? "صغيرة" : "مسكّرة";
+  const label = (t: BT): string => t.state === "free" ? "متاحة" : t.state === "busy" ? "محجوزة" : t.state === "small" ? "صغيرة" : "مسكّرة";
   const room = [[60, 30], [60, 90], [80, 400], [100, 450], [900, 460], [900, 30]];
   const items: { d: number; n: ReactNode }[] = [];
   items.push({ d: 70 + 90, n: <g key="counter"><Box x={100} y={44} w={300} d={34} h={42} top="#4a2f18" left="#2b1a0e" right="#1c1109" /><Box x={100} y={44} w={300} d={34} h={4} z0={42} top="#d9b27a" left="#b98f55" right="#9b7340" /></g> });
   [[88, 420], [75, 60], [40, 540], [640, 540], [920, 530], [40, 1020]].forEach(([x, y], i) => items.push({ d: x + y, n: <Plant key={`p${i}`} x={x} y={y} /> }));
 
   tables.forEach((t, i) => {
-    const sel = selectedId === t.id, free = t.state === "free", busy = t.state === "busy";
+    const pt = paint?.(t);
+    const tone = pt ? TONES[pt.tone] : null;
+    const sel = selectedId === t.id, free = pt ? true : t.state === "free", busy = !pt && t.state === "busy";
     const cx = t.x + t.w / 2, cy = t.y + t.h / 2, H = 30;
-    const top = sel ? "#ffd978" : busy ? "#d2412f" : free ? "#cf9757" : "#5b5b55";
-    const left = sel ? "#c98d1d" : busy ? "#8a2218" : free ? "#8a5a2b" : "#3a3a36";
-    const right = sel ? "#a06f10" : busy ? "#6b1a12" : free ? "#6e4620" : "#2c2c29";
+    const top = sel ? "#ffd978" : tone ? tone.top : busy ? "#d2412f" : free ? "#cf9757" : "#5b5b55";
+    const left = sel ? "#c98d1d" : tone ? tone.left : busy ? "#8a2218" : free ? "#8a5a2b" : "#3a3a36";
+    const right = sel ? "#a06f10" : tone ? tone.right : busy ? "#6b1a12" : free ? "#6e4620" : "#2c2c29";
     const nTop = Math.ceil(t.seats / 2), nBot = t.seats - nTop;
     const row = (n: number, yy: number, back: "n" | "s") => Array.from({ length: n }, (_, k) => <Chair key={back + k} x={t.x + (t.w * (k + 1)) / (n + 1)} y={yy} back={back} />);
     const [gx, gy] = P(cx, cy, 0), [lx, ly] = P(cx, cy, H + 26);
@@ -63,13 +76,15 @@ export function BookingMap({ tables, selectedId, onSelect }: {
         <g key={t.id} className={`r66t ${free ? "free" : ""} ${sel ? "sel" : ""}`} style={{ animationDelay: `${0.3 + i * 0.07}s`, cursor: free ? "pointer" : "not-allowed" }}
           onClick={() => onSelect(t)} onMouseEnter={() => setHover(t.id)} onMouseLeave={() => setHover(null)}>
           <ellipse cx={gx} cy={gy + 6} rx={t.w * 0.78 * CX * 1.6} ry={t.h * 0.7 * CY * 1.5} fill="#000" opacity=".45" style={{ filter: "blur(7px)" }} />
-          {(free || busy || sel) && <ellipse className="r66aura" cx={gx} cy={gy + 2} rx={t.w * 0.95 * CX * 1.5} ry={t.h * 0.9 * CY * 1.5} fill={sel || t.fit ? "#F2C14E" : busy ? "#ff3b30" : "#4fd172"} opacity=".4" style={{ filter: "blur(13px)" }} />}
+          {(tone ? !!tone.aura || sel : free || busy || sel) && <ellipse className="r66aura" cx={gx} cy={gy + 2} rx={t.w * 0.95 * CX * 1.5} ry={t.h * 0.9 * CY * 1.5} fill={sel ? "#F2C14E" : tone ? tone.aura! : t.fit ? "#F2C14E" : busy ? "#ff3b30" : "#4fd172"} opacity={pt?.tone === "call" ? ".7" : ".4"} style={{ filter: "blur(13px)" }} />}
           {row(nTop, t.y - 18, "n")}
           {t.shape === "ROUND" ? <Cyl cx={cx} cy={cy} r={t.w / 2} h={H} top={top} side={left} /> : <Box x={t.x} y={t.y} w={t.w} d={t.h} h={H} top={top} left={left} right={right} />}
           {row(nBot, t.y + t.h + 18, "s")}
           <g transform={`translate(${lx} ${ly})`}>
-            <rect x={-24} y={-17} width={48} height={32} rx={11} fill="#0c130e" stroke={sel ? "#F2C14E" : free ? "#4fd172" : busy ? "#ff6b5e" : "#555"} strokeWidth="2" />
-            <text y={6} textAnchor="middle" fontSize="20" fontWeight="800" fill={sel ? "#F2C14E" : free ? "#fff" : busy ? "#ff9a90" : "#999"} fontFamily={FONT}>{t.label}</text>
+            <rect x={-24} y={-17} width={48} height={32} rx={11} fill="#0c130e" stroke={sel ? "#F2C14E" : tone ? tone.ring : free ? "#4fd172" : busy ? "#ff6b5e" : "#555"} strokeWidth="2" />
+            <text y={6} textAnchor="middle" fontSize="20" fontWeight="800" fill={sel ? "#F2C14E" : tone ? tone.text : free ? "#fff" : busy ? "#ff9a90" : "#999"} fontFamily={FONT}>{t.label}</text>
+            {pt?.sub && <text y={32} textAnchor="middle" fontSize="12" fontWeight="700" fill="#fff" stroke="#000" strokeWidth="3.5" paintOrder="stroke" fontFamily={FONT}>{pt.sub}</text>}
+            {pt?.badge && <g transform="translate(26 -18)"><circle r="12" fill={tone!.ring} stroke="#0c130e" strokeWidth="2"><animate attributeName="r" values="12;14;12" dur="1s" repeatCount="indefinite" /></circle><text y="5" textAnchor="middle" fontSize="13" fontWeight="900" fill="#0c130e" fontFamily={FONT}>{pt.badge}</text></g>}
             {busy && <text y={30} textAnchor="middle" fontSize="11" fontWeight="700" fill="#fff" stroke="#000" strokeWidth="3" paintOrder="stroke" fontFamily={FONT}>🔒 محجوزة</text>}
             {t.fit && free && !sel && <g transform="translate(26 -18)"><circle r="12" fill="#F2C14E" stroke="#0c130e" strokeWidth="2" /><text y="5" textAnchor="middle" fontSize="13" fill="#0c130e">★</text></g>}
           </g>
@@ -139,7 +154,7 @@ export function BookingMap({ tables, selectedId, onSelect }: {
       {hov && (
         <g transform={`translate(${Math.min(Math.max(hx, -440), 380)} ${hy - 30})`} pointerEvents="none">
           <rect x={-115} y={-22} width={230} height={38} rx={19} fill="#0c130e" stroke="#F2C14E" strokeOpacity=".8" />
-          <text textAnchor="middle" y={4} fontSize="14" fill="#fff" fontFamily={FONT}>طاولة {hov.label} · {hov.seats} أشخاص · {label(hov)}</text>
+          <text textAnchor="middle" y={4} fontSize="14" fill="#fff" fontFamily={FONT}>طاولة {hov.label} · {hov.seats} أشخاص · {paint ? paint(hov).tip ?? "" : label(hov)}</text>
         </g>
       )}
     </svg>

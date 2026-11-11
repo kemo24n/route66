@@ -16,6 +16,7 @@ const Patch = z.object({
   pendingHoldMinutes: z.number().int().min(5).max(1440), noShowGraceMinutes: z.number().int().min(0).max(180),
   riskAutoConfirmBelow: z.number().int().min(1).max(99), riskReviewAbove: z.number().int().min(1).max(99),
   bookingEnabled: z.boolean(), qrOrderingEnabled: z.boolean(),
+  publicUrl: z.string().trim().max(200).transform((v) => v.replace(/\/+$/, "")).refine((v) => v === "" || /^https?:\/\/[^\s/]+/.test(v), "العنوان لازم يبلش بـ https://").nullable(),
 }).partial();
 
 export const GET = handle(async () => {

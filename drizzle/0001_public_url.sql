@@ -1,0 +1,1 @@
+ALTER TABLE "settings" ADD COLUMN "public_url" text;

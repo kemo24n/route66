@@ -78,7 +78,7 @@ export async function slotsWithAvailability(date: string, party: number, s: Sett
     const end = addMinutes(sl.at, s.bookingDurationMin);
     const tooSoon = sl.at.getTime() - now.getTime() < s.minLeadMinutes * 60000;
     const freeCount = fitting.filter((t) => !bks.some((b) => b.tableId === t.id && b.startAt < end && b.endAt > sl.at)).length;
-    return { time: sl.time, available: !tooSoon && freeCount > 0, freeTables: tooSoon ? 0 : freeCount, fill: fitting.length ? Math.round((1 - freeCount / fitting.length) * 100) : 100 };
+    return { time: sl.time, past: tooSoon, available: !tooSoon && freeCount > 0, freeTables: tooSoon ? 0 : freeCount, fill: fitting.length ? Math.round((1 - freeCount / fitting.length) * 100) : 100 };
   });
 }
 

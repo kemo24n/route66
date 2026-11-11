@@ -37,7 +37,7 @@ export default function MenuAdmin() {
   return (
     <div>
       <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
-        <h1 className="text-2xl font-bold">المنيو والأسعار</h1>
+        <h1 className="font-display text-4xl leading-none">المنيو والأسعار</h1>
         <div className="flex gap-2">
           <button className="btn-ghost" onClick={() => setBulk(true)}>رفع / تنزيل الأسعار بنسبة</button>
           <button className="btn-neon" onClick={() => setEdit({ categoryId: d?.categories[0]?.id, station: "KITCHEN", price: 0, available: true, nameAr: "", nameEn: "", descAr: "" })}>+ صنف جديد</button>

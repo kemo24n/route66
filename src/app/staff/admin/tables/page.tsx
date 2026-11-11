@@ -96,9 +96,9 @@ export default function TablesEditor() {
   return (
     <div>
       <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
-        <h1 className="text-2xl font-bold">خريطة الطاولات</h1>
+        <h1 className="font-display text-4xl leading-none">خريطة الطاولات</h1>
         <div className="flex gap-2">
-          <a href="/staff/print/qr" target="_blank" className="btn-ghost">طباعة QR الطاولات</a>
+          <a href="/staff/admin/qr" className="btn-ghost">رموز QR</a>
           <button className="btn-neon" disabled={!dirty} onClick={save}>حفظ الخريطة</button>
         </div>
       </div>
@@ -107,7 +107,7 @@ export default function TablesEditor() {
         <button className="tab text-neon" onClick={addZone}>+ قسم</button>
       </div>
 
-      <div className="grid gap-4 xl:grid-cols-[1fr_280px]">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-4 xl:grid-cols-[minmax(0,1fr)_280px]">
         <div className="card p-3">
           {z && (
             <svg ref={svg} viewBox={`-20 -20 ${z.width + 40} ${z.height + 40}`} className="h-auto w-full touch-none select-none" style={{ direction: "ltr" }}
@@ -168,7 +168,7 @@ export default function TablesEditor() {
                 <button className="btn-ghost flex-1" onClick={() => { const key = `new-${Date.now()}`; setTables((ts) => [...ts, { ...s, id: undefined, key, label: nextLabel(), x: s.x + 30, y: s.y + 30 }]); setSel(key); setDirty(true); }}>نسخ</button>
                 <button className="btn-ghost flex-1 text-red-300" onClick={() => { setTables((ts) => ts.filter((t) => t.key !== s.key)); setSel(null); setDirty(true); }}>حذف</button>
               </div>
-              {s.id && <a href={`/api/admin/qr/${s.id}`} target="_blank" className="block text-center text-xs text-neon hover:underline">QR هالطاولة</a>}
+              {s.id && <a href="/staff/admin/qr" className="btn-ghost w-full text-xs">QR هالطاولة ←</a>}
             </div>
           )}
         </div>

@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { api, useLive, minutesSince } from "@/lib/client";
 import { Empty, Money, Spinner, useToast } from "@/components/ui";
+import { motion, AnimatePresence } from "motion/react";
 
 type R = { id: string; type: string; status: string; createdAt: string; table: string; tableId: string; note: string | null; items: { menuItemId: string; qty: number; notes?: string; name: string; price: number }[] };
 
@@ -34,16 +35,17 @@ export default function RequestsPage() {
   if (!data) return <div className="py-20 text-center"><Spinner /></div>;
   return (
     <div>
-      <h1 className="mb-4 text-2xl font-bold">النداءات من الطاولات</h1>
+      <h1 className="mb-5 font-display text-4xl leading-none">النداءات من الطاولات</h1>
       {data.requests.length === 0 ? <Empty>ما في نداءات هلق</Empty> : (
-        <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+        <motion.div layout className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+          <AnimatePresence mode="popLayout">
           {data.requests.map((r) => {
             const [l, c] = LABEL[r.type];
             const late = minutesSince(r.createdAt) >= 3;
             return (
-              <div key={r.id} className={`card p-4 ${late ? "ring-2 ring-red-500/50" : ""}`}>
+              <motion.div key={r.id} layout initial={{ opacity: 0, scale: 0.9, y: -20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.9, x: 60 }} transition={{ type: "spring", stiffness: 320, damping: 28 }} className={`card p-4 ${late ? "border-tail shadow-[0_0_0_1px_#D9381E]" : ""}`}>
                 <div className="flex items-center justify-between">
-                  <div className="text-2xl font-bold">طاولة {r.table}</div>
+                  <div className="font-display text-4xl leading-none">طاولة {r.table}</div>
                   <span className={`chip ${c}`}>{l}</span>
                 </div>
                 <div className={`mt-1 text-xs ${late ? "text-red-300" : "text-white/50"}`}>قبل {minutesSince(r.createdAt)} دقيقة {r.status === "ACK" && "· حدا رايح"}</div>
@@ -73,10 +75,11 @@ export default function RequestsPage() {
                   )}
                 </div>
                 {r.type === "ORDER" && <p className="mt-2 text-[11px] text-white/40">روح عالطاولة وتأكد إنو في حدا قاعد قبل ما تقبل الطلب</p>}
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+          </AnimatePresence>
+        </motion.div>
       )}
     </div>
   );
